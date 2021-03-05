@@ -1,0 +1,15 @@
+{
+    "name":"Challenge19BudgetTracker",
+    "short_name":"Challenge19",
+    "icons":[
+        {
+            "src": "./icons/icon-192x192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        }
+    ],
+    "theme_color": "#0000ff",
+    "background_color": "#000000",
+    "start_url": "/",
+    "display": "standalone"
+}

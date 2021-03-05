@@ -1,5 +1,7 @@
 let transactions = [];
 let myChart;
+if(navigator.onLine) {
+
 
 fetch("/api/transaction")
   .then(response => {
@@ -8,12 +10,13 @@ fetch("/api/transaction")
   .then(data => {
     // save db data on global variable
     transactions = data;
+    console.log(transactions);
 
     populateTotal();
     populateTable();
     populateChart();
-  });
-
+  })
+}
 function populateTotal() {
   // reduce transaction amounts to a single total value
   let total = transactions.reduce((total, t) => {
@@ -79,6 +82,7 @@ function populateChart() {
 }
 
 function sendTransaction(isAdding) {
+  console.log("onlinestatus: ", navigator.onLine)
   let nameEl = document.querySelector("#t-name");
   let amountEl = document.querySelector("#t-amount");
   let errorEl = document.querySelector(".form .error");
@@ -113,6 +117,10 @@ function sendTransaction(isAdding) {
   populateTotal();
   
   // also send to server
+
+ if (navigator.onLine) {
+
+
   fetch("/api/transaction", {
     method: "POST",
     body: JSON.stringify(transaction),
@@ -142,6 +150,9 @@ function sendTransaction(isAdding) {
     nameEl.value = "";
     amountEl.value = "";
   });
+} else {
+  saveRecord(transaction);
+}
 }
 
 document.querySelector("#add-btn").onclick = function() {
